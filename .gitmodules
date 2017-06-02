@@ -1,0 +1,3 @@
+[submodule "fbexport"]
+	path = fbexport
+	url = https://github.com/mariuz/fbexport.git
