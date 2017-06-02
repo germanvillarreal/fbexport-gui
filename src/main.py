@@ -5,6 +5,14 @@ from tkinter.filedialog import asksaveasfile
 class App:
   def __init__(self, master):
 
+    menubar = Menu(master)
+    menubar.add_command(label='File')
+    menubar.add_command(label='About')
+    master.config(menu=menubar)
+
+    master.title('fbexport GUI')
+    master.resizable(False, False)
+
 ##########
     frame_database = LabelFrame(master, text='Connection Info', padx=5, pady=5)
     frame_database.pack(padx=5, pady=5, fill='x')
@@ -60,16 +68,5 @@ class App:
 
 
 root = Tk()
-
-root.title('fbexport GUI')
-
-menubar = Menu(root)
-menubar.add_command(label='File')
-menubar.add_command(label='About')
-root.config(menu=menubar)
-
-root.resizable(False, False)
-
-
 app = App(root)
 root.mainloop()
