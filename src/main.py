@@ -1,4 +1,4 @@
-from tkinter import *
+import tkinter as tk
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import asksaveasfile
@@ -11,58 +11,58 @@ class App:
   RADIO_TABLE = 1
   RADIO_SQL = 2
 
-  def __init__(self, master, ttk):
+  def __init__(self, master):
 
     master.title('fbexport GUI')
     master.resizable(False, False)
 
-    menubar = Menu(master)
+    menubar = tk.Menu(master)
     menubar.add_command(label='File')
     menubar.add_command(label='About')
     master.config(menu=menubar)
 
 ########## DATABASE INFO
-    self.frame_database = LabelFrame(master, text='Connection Info', padx=5, pady=5)
+    self.frame_database = ttk.LabelFrame(master, text='Connection Info')
     self.frame_database.pack(padx=5, pady=5, fill='x')
 
-    self.stream = IntVar()
+    self.stream = tk.IntVar()
     self.stream.set(1)
 
-    Radiobutton(self.frame_database, value=App.RADIO_URL, variable=self.stream, text='URL:', command=self.conn_type).grid(row=0, column=0, padx=5, pady=5)
-    Entry(self.frame_database, name='url').grid(row=0, column=1, columnspan=2, padx=5, pady=5, sticky='we')
+    ttk.Radiobutton(self.frame_database, value=App.RADIO_URL, variable=self.stream, text='URL:', command=self.conn_type).grid(row=0, column=0, padx=5, pady=5)
+    ttk.Entry(self.frame_database, name='url').grid(row=0, column=1, columnspan=2, padx=5, pady=5, sticky='we')
 
-    Radiobutton(self.frame_database, value=App.RADIO_FILE, variable=self.stream, text='File:', command=self.conn_type).grid(row=1, column=0, padx=5, pady=5)
-    Entry(self.frame_database, name='browse').grid(row=1, column=1, padx=5, pady=5)
-    Button(self.frame_database, name='browse_btn', text='Browse..', command=self.load_file).grid(row=1, column=2, padx=5, pady=5)
+    ttk.Radiobutton(self.frame_database, value=App.RADIO_FILE, variable=self.stream, text='File:', command=self.conn_type).grid(row=1, column=0, padx=5, pady=5)
+    ttk.Entry(self.frame_database, name='browse').grid(row=1, column=1, padx=5, pady=5)
+    ttk.Button(self.frame_database, name='browse_btn', text='Browse..', command=self.load_file).grid(row=1, column=2, padx=5, pady=5)
 
-    Label(self.frame_database, text='Username:').grid(row=2, column=0, padx=5, pady=5)
-    Entry(self.frame_database, name='dtb').grid(row=2, column=1, columnspan=2, padx=5, pady=5, sticky='we')
+    ttk.Label(self.frame_database, text='Username:').grid(row=2, column=0, padx=5, pady=5)
+    ttk.Entry(self.frame_database, name='dtb').grid(row=2, column=1, columnspan=2, padx=5, pady=5, sticky='we')
 
-    Label(self.frame_database, text='Password:').grid(row=3, column=0, padx=5, pady=5)
-    Entry(self.frame_database, name='pword', show='*').grid(row=3, column=1, columnspan=2, padx=5, pady=5, sticky='we')
+    ttk.Label(self.frame_database, text='Password:').grid(row=3, column=0, padx=5, pady=5)
+    ttk.Entry(self.frame_database, name='pword', show='*').grid(row=3, column=1, columnspan=2, padx=5, pady=5, sticky='we')
 
 ##########
-    self.frame_data = LabelFrame(master, text='Data', padx=5, pady=5)
+    self.frame_data = ttk.LabelFrame(master, text='Data')
     self.frame_data.pack(padx=5, pady=5, fill='x')
 
-    self.data = IntVar()
+    self.data = tk.IntVar()
     self.data.set(1)
 
-    Radiobutton(self.frame_data, value=App.RADIO_TABLE, variable=self.data, command=self.data_type, text='Table:').grid(row=0, column=0, padx=5, pady=5, columnspan=2)
-    Entry(self.frame_data, name='table').grid(row=0, column=2, columnspan=2, padx=5, pady=5, sticky='we')
+    ttk.Radiobutton(self.frame_data, value=App.RADIO_TABLE, variable=self.data, command=self.data_type, text='Table:').grid(row=0, column=0, padx=5, pady=5, columnspan=2)
+    ttk.Entry(self.frame_data, name='table').grid(row=0, column=2, columnspan=2, padx=5, pady=5, sticky='we')
 
-    Label(self.frame_data, text='Where:').grid(row=1, column=1, padx=5, pady=5, sticky='we')
-    Entry(self.frame_data, name='where').grid(row=1, column=2, columnspan=2, sticky='we', padx=5, pady=5)
+    ttk.Label(self.frame_data, text='Where:').grid(row=1, column=1, padx=5, pady=5, sticky='we')
+    ttk.Entry(self.frame_data, name='where').grid(row=1, column=2, columnspan=2, sticky='we', padx=5, pady=5)
 
-    Radiobutton(self.frame_data, value=App.RADIO_SQL, variable=self.data, command=self.data_type, text='SQL:').grid(row=2, column=0, padx=5, pady=5, columnspan=2)
-    Entry(self.frame_data, name='sql').grid(row=2, column=2, padx=5, pady=5)
-    Button(self.frame_data, name='sql_btn', text='Browse..', command=self.load_file).grid(row=2, column=3, padx=5, pady=5)
+    ttk.Radiobutton(self.frame_data, value=App.RADIO_SQL, variable=self.data, command=self.data_type, text='SQL:').grid(row=2, column=0, padx=5, pady=5, columnspan=2)
+    ttk.Entry(self.frame_data, name='sql').grid(row=2, column=2, padx=5, pady=5)
+    ttk.Button(self.frame_data, name='sql_btn', text='Browse..', command=self.load_file).grid(row=2, column=3, padx=5, pady=5)
 
 ##########
-    self.action_frame = Frame(master)
+    self.action_frame = ttk.Frame(master)
     self.action_frame.pack()
-    Button(self.action_frame, text='Save As...').grid(row=0, column=0, padx=5, pady=5)
-    Button(self.action_frame, text='Export As...', command=self.export()).grid(row=0, column=1, padx=5, pady=5)
+    ttk.Button(self.action_frame, text='Save As...').grid(row=0, column=0, padx=5, pady=5)
+    ttk.Button(self.action_frame, text='Export As...', command=self.export()).grid(row=0, column=1, padx=5, pady=5)
 
     self.data_type()
     self.conn_type()
@@ -147,6 +147,6 @@ class App:
     '''
     return
 
-root = Tk()
-app = App(root, ttk)
+root = tk.Tk()
+app = App(root)
 root.mainloop()
